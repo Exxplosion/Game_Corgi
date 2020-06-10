@@ -12,10 +12,11 @@ Game::Game() :
                clock_game(sf::Clock()),
 			   LOOSE_PAUSE(sf::seconds(4.0)),
 			   FIRST_RESTART(true)
+			   //MENU(Menu())
 {
 	Background.loadFromFile("images/imgonline-com-ua-Resize-PYauMusAo9I.png");
 	sprite_background.setTexture(Background);
-	slimes_pos = {{2660, 2030 - 65}, {2100, 420}, {8820, 1260 - 65}, {7070, 910 - 65}};
+	slimes_pos = {{2600, 2030 - 65}, {1800, 420}, {8820, 1260 - 65}, {7070, 910 - 65}};
 	skel_pos = {{700, GROUND$}, {11970, 420 - 140}, {3150, 560 - 140}, {13230, 1610 - 140}};
 }
 
@@ -39,7 +40,7 @@ void Game::background_motion(sf::Vector2f pos_camera)
 
 
 
-void Game::InitEnemy()
+void Game::init_enemy()
 {
 	for(int i = 0; i < 4; i++)
 	{
@@ -55,38 +56,33 @@ void Game::InitEnemy()
 }
 
 
-void Game::KillEnemy(){
-	/* for(auto i : Slimes){
-		delete i;
-	} */
+void Game::KillEnemy()
+{
+	delete [] &Slimes;
+
+	delete [] &Skeletons;
 }
-
-
-
 
 
 void Game::run()
 {
-	Menu MENU;
+	//menu_run();
 
-	MENU.menu(window);
-	
-	InitEnemy();
+	init_enemy();
 
 	Hero hero("images/Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 150, GROUND$);
 	
 	window.setFramerateLimit(30);
 
 	Map map;
+	
 	while (window.isOpen())
 	{
 		this->time_game = clock_game.getElapsedTime().asMicroseconds();
 		this->clock_game.restart();
 
-		this->time_game = this->time_game / 1000;
+		this->time_game = this->time_game / 1000; //определяется скорость игры
 
-		if (this->time_game > 20)
-			this->time_game = 20;
 
 		window.clear();
 		window.pollEvent(event_game);
@@ -99,20 +95,16 @@ void Game::run()
 
 
 		hero.motion();
-		//slime.motion();
 		background_motion(hero.get_pos_camera());
-
 
 
 		hero.update(time_game, map);
 
-		for(auto i : Slimes){
+		for(auto i : Slimes)
 			i->update(time_game, window, hero, map);
-		}  
 
-		for(auto i : Skeletons){
+		for(auto i : Skeletons)
 			i->update(time_game, window, hero, map);
-		}
 
 		if ((hero.current_direction == hero.GAME_OVER) && this->FIRST_RESTART)
 		{
@@ -122,16 +114,19 @@ void Game::run()
 
 		if ((this->clock_game_loose.getElapsedTime().asSeconds() > this->LOOSE_PAUSE.asSeconds()) && !(this->FIRST_RESTART))
 		{
-			printf("gaga!!!\n");
-			MENU.menu(window);
+			return;
 		}
 
 		map.draw(window);
-		
-		
-		
+
 		hero.draw(window);
 
 		window.display();
 	}
 }
+/*
+void Game::menu_run()
+{
+	MENU.menu(window);
+}
+*/

@@ -1,2 +1,2 @@
 # Game_Corgi
-CorgiGame_sfml
+![CorgiGame_sfml](images/Klass.png)

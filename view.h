@@ -15,8 +15,8 @@ void ChangeView(const sf::Vector2f& pos_hero)
         X = 12500;
     if (pos_hero.y < 550 + 70)
         Y = 550 + 70;
-    if (pos_hero.y > 2120)
-        Y = 2120;
+    if (pos_hero.y > 2050)
+        Y = 2050;
     view.setCenter(X, Y);
 }
 #endif

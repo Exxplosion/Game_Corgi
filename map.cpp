@@ -50,8 +50,3 @@ void Map::draw(sf::RenderWindow &window)
 			window.draw(sprite_map);
 		}
 }
-
-
-Map::~Map(){
-
-}

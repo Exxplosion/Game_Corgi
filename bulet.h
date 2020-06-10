@@ -2,7 +2,6 @@
 #define BULET_H
 #include "hero.h"
 
-//Для правильности работы этого объекта противник, который его использует должен задать начальные скорости и направление.
 class Bulet : public Object
 {
 public:
@@ -27,7 +26,7 @@ public:
 
     virtual void draw(sf::RenderWindow &window);
     
-    bool CheckWall(Map& map);
+    void CheckWall(Map& map);
     void CheckHero(Hero& hero);
 
     void motion();

@@ -20,8 +20,6 @@ public:
         STAY,
     };
 
-    short int previous_direction;
-    short int previous_direction_2;
     short int current_direction;
     int NUMBER_SLIDE;
     double currentFrame;

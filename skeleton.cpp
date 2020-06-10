@@ -8,7 +8,6 @@ Skeleton::Skeleton(const std::string name_file,
 
         Object(name_file, obj_size_x, obj_size_y, pos_x, pos_y),
         currentFrame(0.0),
-        previous_direction(RIGHT),
         ON_GROUND(true),
         COOLDOWN_FIRE(sf::seconds(0.5))
         {
@@ -52,7 +51,8 @@ void Skeleton::update(float time, sf::RenderWindow &window, Hero& hero, Map& map
     }
 }
 
-int Skeleton::IsHeroNear(const Hero& hero){
+int Skeleton::IsHeroNear(const Hero& hero)
+{
     float distx = hero.pos_obj.x - pos_obj.x;
     float disty = hero.pos_obj.y - pos_obj.y;
 
@@ -72,7 +72,7 @@ void Skeleton::fire(Hero& hero)
 {
     Bulet *my_bulet = new Bulet("images/bullet.png", 95, 87, pos_obj.x, pos_obj.y);
 
-    if (bullets.size() == 0 && IsHeroNear(hero))
+    if (bullets.size() == 0 && this->dist_to_Hero < 1400)
     {
         float y_0, x_0;
         x_0 = hero.pos_obj.x + hero.size_obj.x / 2 - (this->pos_obj.x + this->size_obj.x/2); //расстояние  по х между героем и скелетом

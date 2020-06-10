@@ -149,7 +149,7 @@ void Hero::draw(sf::RenderWindow &window)
 void Hero::update(float time, Map& map)
 {
     printf(" X %f, Y %f\n", pos_obj.x, pos_obj.y);
-    if (this->hit_points < 0)
+    if (this->hit_points <= 0)
     {
         currentFrame += 0.002 * time;
 
@@ -180,7 +180,7 @@ void Hero::update(float time, Map& map)
 
     currentFrame += 0.01 * time;
 
-    if (currentFrame > 8) //TODO: fix this + spritesheet
+    if (currentFrame > 8)
         currentFrame -= 8;
 
     this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
@@ -296,8 +296,6 @@ void Hero::update(float time, Map& map)
     }
     this->hit_points_previous = this->hit_points;
 
-    // ДОБАВИТЬ ПРОВЕРКУ ХП + ИЗМЕНИТЬ СПРАЙТ ЛЯ ЭТГО
-
     this->velocity_obj.x = 0;
 }
 
@@ -341,6 +339,7 @@ void Hero::CheckMap(Map &map, const int current_check)
                 case 'k':
                     keys++;
                     gold += 200;
+                    map.TileMap[i][j] = ' ';
                     break;
                 case 'H':
                     if (this->hit_points < 3)

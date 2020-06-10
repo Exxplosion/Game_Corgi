@@ -10,12 +10,9 @@
 
 class Game
 {
-private:
-
-void InitEnemy();
-void KillEnemy();
-
 public:
+    void init_enemy();
+    void KillEnemy();
     sf::RenderWindow window;
     sf::Texture Background;
     sf::Sprite sprite_background;
@@ -25,6 +22,8 @@ public:
     const sf::Time LOOSE_PAUSE;
     float time_game;
     bool FIRST_RESTART;
+    Menu MENU;
+    //void menu_run();
 
     Game();
     void background_motion(sf::Vector2f pos_camera);
