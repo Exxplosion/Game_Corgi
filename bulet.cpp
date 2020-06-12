@@ -70,7 +70,7 @@ void Bulet::CheckHero(Hero& hero)
     if(this->getRect().intersects(hero.getRect()))
     {
         this->life = false;
-       // hero.hit_points--;
+        hero.hit_points--;
         //hero.velocity_obj.y = -0.35;
     }
 }

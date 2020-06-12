@@ -75,7 +75,12 @@ void Game::run()
 	window.setFramerateLimit(30);
 
 	Map map;
-	
+	sf::Music music;
+	music.openFromFile("images/beach_boys.wav");
+	music.setLoop(true);
+
+	music.play();
+
 	while (window.isOpen())
 	{
 		this->time_game = clock_game.getElapsedTime().asMicroseconds();
@@ -113,6 +118,7 @@ void Game::run()
 
 		if ((this->clock_game_loose.getElapsedTime().asSeconds() > this->LOOSE_PAUSE.asSeconds()) && !(this->FIRST_RESTART))
 		{
+			
 			return;
 		}
 

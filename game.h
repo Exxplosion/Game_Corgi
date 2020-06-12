@@ -6,7 +6,7 @@
 //#include "view.h"
 #include "slime.h"
 #include "skeleton.h"
-#include "menu.h"
+#include <SFML/Audio.hpp>
 
 class Game
 {
@@ -22,7 +22,7 @@ public:
     const sf::Time LOOSE_PAUSE;
     float time_game;
     bool FIRST_RESTART;
-    Menu MENU;
+    //Menu MENU;
     //void menu_run();
 
     Game();

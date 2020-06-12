@@ -12,6 +12,7 @@ Hero::Hero(const std::string name_file,
     COOLDOWN_INVINCIBLE(sf::seconds(3.0)),
     COOLDOWN_GOTHIT(sf::seconds(2.0)),
     hit_points(3),
+    hit_points_previous(3),
     FIRST_GOTHIT(false),
     gold(0),
     keys(0),
@@ -20,9 +21,18 @@ Hero::Hero(const std::string name_file,
     texture_high_score(sf::Texture()),
     high_score_sprite(sf::Sprite()),
     gold_texture(sf::Texture()),
-    gold_sprite(sf::Sprite())
+    gold_sprite(sf::Sprite()),
+    bark_sound(sf::SoundBuffer()),
+    bark(sf::Sound()),
+    yummy_sound(sf::SoundBuffer()),
+    yummy(sf::Sound())
 {
     acceleration_obj.y = 0.0005;
+    acceleration_obj.x = 0.0;
+    bark_sound.loadFromFile("images/bark.wav");
+    bark.setBuffer(bark_sound);
+    yummy_sound.loadFromFile("images/yummy.wav");
+    yummy.setBuffer(yummy_sound);
     texture_hearts.loadFromFile("images/tilemap1.png");
     hearts_sprite.setTexture(texture_hearts);
     texture_high_score.loadFromFile("images/xhighscores.png");
@@ -177,7 +187,7 @@ void Hero::update(float time, Map& map)
 {
     printf(" X %f, Y %f\n", pos_obj.x, pos_obj.y);
 
-    if (this->hit_points < 0)
+    if ((this->hit_points < 0) || (this->hit_points_previous <= 0))
     {
         currentFrame += 0.002 * time;
 
@@ -313,6 +323,7 @@ void Hero::update(float time, Map& map)
             {
                 //printf("RESET\n");
                 this->clock.restart();
+                this->bark.play();
                 //this->FIRST_GOTHIT = true;
             }
         }
@@ -375,12 +386,14 @@ void Hero::CheckMap(Map &map, const int current_check)
                 case 'k':
                     keys++;
                     gold += 200;
+                    this->yummy.play();
                     map.TileMap[i][j] = ' ';
                     break;
                 case 'H':
                     if (this->hit_points < 3)
                     {
                         this->hit_points++;
+                        this->yummy.play();
                         map.TileMap[i][j] = ' ';
                     }
                     break;

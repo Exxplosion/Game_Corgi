@@ -2,6 +2,7 @@
 #define HERO_H
 
 #include "objects.h"
+#include <SFML/Audio.hpp>
 
 #define CHECK_X 156
 #define CHECK_Y 357
@@ -54,6 +55,11 @@ public:
     sf::Texture gold_texture;
     sf::Sprite gold_sprite;
 
+    sf::SoundBuffer bark_sound;
+    sf::Sound bark;
+
+    sf::SoundBuffer yummy_sound;
+    sf::Sound yummy;
 
     const sf::Time COOLDOWN_INVINCIBLE;
     const sf::Time COOLDOWN_GOTHIT;
@@ -73,7 +79,9 @@ public:
          int pos_x, int pos_y);
 
     void CheckMap(Map &map, const int current_check);
-    Hero(const Hero&) = delete;
+
+    Hero(const Hero &) = delete;
+
     sf::Vector2f get_pos_camera();
 
     void update(float time, Map &map);

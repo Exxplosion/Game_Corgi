@@ -2,6 +2,8 @@
 #define MENU_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 //#include "view.h"
 
 extern sf::View view;

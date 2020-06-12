@@ -38,6 +38,10 @@ Menu::Menu() : texture_button1(sf::Texture()),
 
 void Menu::menu(sf::RenderWindow& window)
 {
+    sf::Music music;
+    music.openFromFile("images/beach_boys.wav");
+
+    music.play();
 
     is_menu = true;
     
