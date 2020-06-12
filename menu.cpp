@@ -31,7 +31,7 @@ Menu::Menu() : texture_button1(sf::Texture()),
     button3.setPosition(640 - 58, 460);
     button3.scale(2.0, 2.0);
     //button3.setTextureRect(sf::IntRect(0, 0, 100, 200));
-    sp_bckgrund.setPosition(1920 / 2, 1080 / 2);
+    sp_bckgrund.setPosition(0, 0);
     sp_png_game.setPosition(500, 0);
     sp_png_game.setScale(0.4, 0.4);
 };
@@ -47,6 +47,8 @@ void Menu::menu(sf::RenderWindow& window)
         if (sf::IntRect(640 - 58, 260, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {   
             is_menu = false;
+            sf::Vector2u vec = {1920, 1080};
+            window.setSize(vec);
             return;
         }
         if (sf::IntRect(640 - 58, 360, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))

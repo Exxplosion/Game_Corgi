@@ -47,8 +47,13 @@ public:
     bool ON_INVINCIBLE;
     bool FIRST_GOTHIT;
 
-    sf::Texture texture_hearts; //stdmap ; texture manager use??
+    sf::Texture texture_hearts; //stdmap ; texture manager use?
     sf::Sprite hearts_sprite;
+    sf::Texture texture_high_score;
+    sf::Sprite high_score_sprite;
+    sf::Texture gold_texture;
+    sf::Sprite gold_sprite;
+
 
     const sf::Time COOLDOWN_INVINCIBLE;
     const sf::Time COOLDOWN_GOTHIT;
@@ -68,7 +73,7 @@ public:
          int pos_x, int pos_y);
 
     void CheckMap(Map &map, const int current_check);
-    //Hero(const Hero&) = delete;
+    Hero(const Hero&) = delete;
     sf::Vector2f get_pos_camera();
 
     void update(float time, Map &map);

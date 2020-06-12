@@ -13,12 +13,24 @@ Hero::Hero(const std::string name_file,
     COOLDOWN_GOTHIT(sf::seconds(2.0)),
     hit_points(3),
     FIRST_GOTHIT(false),
+    gold(0),
+    keys(0),
     hearts_sprite(sf::Sprite()),
-    texture_hearts(sf::Texture())
+    texture_hearts(sf::Texture()),
+    texture_high_score(sf::Texture()),
+    high_score_sprite(sf::Sprite()),
+    gold_texture(sf::Texture()),
+    gold_sprite(sf::Sprite())
 {
     acceleration_obj.y = 0.0005;
     texture_hearts.loadFromFile("images/tilemap1.png");
     hearts_sprite.setTexture(texture_hearts);
+    texture_high_score.loadFromFile("images/xhighscores.png");
+    high_score_sprite.setTexture(texture_high_score);
+    gold_texture.loadFromFile("images/gamenumbers.png");
+    gold_sprite.setTexture(gold_texture);
+    gold_sprite.setScale(2.0, 3.0);
+    high_score_sprite.setScale(2.0,3.0);
     hearts_sprite.setTextureRect(sf::IntRect(490, 490, 70, 70));
     hearts_sprite.setPosition(640-70, 0);
     view.reset(sf::FloatRect(0, 0, 1920, 1080));
@@ -54,12 +66,12 @@ void Hero::motion()
         this->ON_INVINCIBLE = true;
         if (this->previous_direction_2 > 7)
         {
-            this->current_direction = INVINCIBLE_RIGHT;
+            //this->current_direction = INVINCIBLE_RIGHT;
             this->velocity_obj.x = 2.0;
         }
         else
         {
-            this->current_direction = INVINCIBLE_LEFT;
+            //this->current_direction = INVINCIBLE_LEFT;
             this->velocity_obj.x = -2.0;
         }
     }
@@ -143,13 +155,29 @@ void Hero::draw(sf::RenderWindow &window)
         window.draw(hearts_sprite);
         break;
     }
+
+    high_score_sprite.setPosition(view.getCenter().x - 150, view.getCenter().y - 530);
+    window.draw(high_score_sprite);
+
+    int tmp_score_digit = this->gold;
+    int i = 0;
+    while(tmp_score_digit)
+    {
+        this->gold_sprite.setTextureRect(sf::IntRect(17*(tmp_score_digit % 10),0,17,18));
+        this->gold_sprite.setPosition(view.getCenter().x + 315 - 5*34 - 34*i, view.getCenter().y - 450);
+        tmp_score_digit /= 10;
+        i++;
+        window.draw(gold_sprite);
+    }
+
     window.draw(this->obj_sprite);
 }
 
 void Hero::update(float time, Map& map)
 {
     printf(" X %f, Y %f\n", pos_obj.x, pos_obj.y);
-    if (this->hit_points <= 0)
+
+    if (this->hit_points < 0)
     {
         currentFrame += 0.002 * time;
 
@@ -195,14 +223,22 @@ void Hero::update(float time, Map& map)
 
     if (this->ON_INVINCIBLE)
     {
-        this->velocity_obj.x = 0;
+        //this->velocity_obj.x = 0;
+        if (this->previous_direction_2 > 7)
+        {
+            this->current_direction = INVINCIBLE_RIGHT;
+        }
+        else
+        {
+            this->current_direction = INVINCIBLE_LEFT;
+        }
+
         this->ON_INVINCIBLE = false;
         if (this->current_direction == INVINCIBLE_RIGHT)
             this->obj_sprite.setPosition(this->pos_obj.x - 363, this->pos_obj.y);
-        return;
+        //return;
     }
-
-    if (this->velocity_obj.x > 0 && this->velocity_obj.y > 0)
+    else if (this->velocity_obj.x > 0 && this->velocity_obj.y > 0)
     {
         this->current_direction = JUMP_UP_RIGHT;
     }
@@ -349,10 +385,10 @@ void Hero::CheckMap(Map &map, const int current_check)
                     }
                     break;
                 case 'l':
-                    this->hit_points = 0;
+                    this->hit_points = -1;
                     break;
                 case '~':
-                    this->hit_points = 0;
+                    this->hit_points = -1;
                     break;
                 case '*':
                     map.TileMap[i][j] = '!';
@@ -366,7 +402,7 @@ void Hero::CheckMap(Map &map, const int current_check)
 
                 if ((map.TileMap[i][j] == 'D' || map.TileMap[i][j] == 'd') && keys == 3)
                 {
-                    hit_points = 0;
+                    hit_points = -1;
                 }
             }
         }
