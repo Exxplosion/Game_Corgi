@@ -14,6 +14,7 @@ Hero::Hero(const std::string name_file,
     hit_points(3),
     hit_points_previous(3),
     FIRST_GOTHIT(false),
+    game_win(false),
     gold(0),
     keys(0),
     hearts_sprite(sf::Sprite()),
@@ -331,13 +332,16 @@ void Hero::update(float time, Map& map)
 
         if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
         {
-            if (this->current_direction < 8)
+            if ((this->current_direction != INVINCIBLE_LEFT) && (this->current_direction != INVINCIBLE_RIGHT))
             {
-                this->current_direction = GOT_HIT_LEFT;
-            }
-            else
-            {
-                this->current_direction = GOT_HIT_RIGHT;
+                if (this->current_direction < 8)
+                {
+                    this->current_direction = GOT_HIT_LEFT;
+                }
+                else
+                {
+                    this->current_direction = GOT_HIT_RIGHT;
+                }
             }
         }
     }
@@ -415,7 +419,7 @@ void Hero::CheckMap(Map &map, const int current_check)
 
                 if ((map.TileMap[i][j] == 'D' || map.TileMap[i][j] == 'd') && keys == 3)
                 {
-                    hit_points = -1;
+                    this->game_win = true;
                 }
             }
         }

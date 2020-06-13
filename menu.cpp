@@ -22,18 +22,18 @@ Menu::Menu() : texture_button1(sf::Texture()),
     button2.setTexture(texture_button2);
     button3.setTexture(texture_button3);
     sp_bckgrund.setTexture(texture_bckgrund);
-    button1.setPosition(640 - 58, 260);
+    button1.setPosition(560 - 58, 360);
     button1.scale(2.0, 2.0);
     //button1.setTextureRect(sf::IntRect(0, 0, 100, 150));
-    button2.setPosition(640 - 58, 360);
+    button2.setPosition(560 - 58, 460);
     button2.scale(2.0, 2.0);
     //button2.setTextureRect(sf::IntRect(0, 0, 100, 150));
-    button3.setPosition(640 - 58, 460);
+    button3.setPosition(560 - 58, 560);
     button3.scale(2.0, 2.0);
     //button3.setTextureRect(sf::IntRect(0, 0, 100, 200));
     sp_bckgrund.setPosition(0, 0);
-    sp_png_game.setPosition(500, 0);
-    sp_png_game.setScale(0.4, 0.4);
+    sp_png_game.setPosition(0, 0);
+    sp_png_game.setScale(0.57, 0.55);
 };
 
 void Menu::menu(sf::RenderWindow& window)
@@ -48,14 +48,14 @@ void Menu::menu(sf::RenderWindow& window)
     while (is_menu)
     {
         window.clear();
-        if (sf::IntRect(640 - 58, 260, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::IntRect(560 - 58, 360, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {   
             is_menu = false;
             sf::Vector2u vec = {1920, 1080};
             window.setSize(vec);
             return;
         }
-        if (sf::IntRect(640 - 58, 360, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::IntRect(560 - 58, 460, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             while (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
             {
@@ -63,7 +63,7 @@ void Menu::menu(sf::RenderWindow& window)
                 window.display();
             }
         }
-        if (sf::IntRect(640 - 58, 460, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::IntRect(560 - 58, 560, 150, 50).contains(sf::Mouse::getPosition(window)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             printf("bye!\n");
             window.close();

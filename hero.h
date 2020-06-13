@@ -47,6 +47,7 @@ public:
     bool ON_GROUND;
     bool ON_INVINCIBLE;
     bool FIRST_GOTHIT;
+    bool game_win;
 
     sf::Texture texture_hearts; //stdmap ; texture manager use?
     sf::Sprite hearts_sprite;
