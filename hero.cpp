@@ -186,7 +186,7 @@ void Hero::draw(sf::RenderWindow &window)
 
 void Hero::update(float time, Map& map)
 {
-    printf(" X %f, Y %f\n", pos_obj.x, pos_obj.y);
+    //printf(" X %f, Y %f, KEYS, WIN? %d, %d\n", pos_obj.x, pos_obj.y, this->keys, this->game_win);
 
     if ((this->hit_points < 0) || (this->hit_points_previous <= 0))
     {
